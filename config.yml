@@ -90,11 +90,13 @@ engine:                            # Engine settings.
 #   Hash: 256
 
   uci_options:                     # Arbitrary UCI options passed to the engine.
-    Move Overhead: 100             # Increase if your bot flags games too often.
-    Threads: 4                    # Max CPU threads the engine can use.
-    Hash: 1500                    # Max memory (in megabytes) the engine can allocate.
+    Move Overhead: 350            # Increase if your bot flags games too often.
+    Threads: 2                    # Max CPU threads the engine can use.
+    Hash: 6144                     # Max memory (in megabytes) the engine can allocate.
     SyzygyPath: "./syzygy/"        # Paths to Syzygy endgame tablebases that the engine reads.
     UCI_ShowWDL: true              # Show the chance of the engine winning.
+    Weights: "engines/BT4-1740.pb.gz"
+    Backend: cudnn
 #   go_commands:                   # Additional options to pass to the UCI go command.
 #     nodes: 1                     # Search so many nodes only.
 #     depth: 5                     # Search depth ply only.
@@ -112,7 +114,7 @@ engine:                            # Engine settings.
 #     depth: 5                     # Search depth ply only.
 #     Do note that the go commands 'movetime' and 'nodes' are invalid and may cause bad time management for XBoard engines.
 
-  silence_stderr: false            # Some engines (yes you, Leela) are very noisy.
+  silence_stderr: true            # Some engines (yes you, Leela) are very noisy.
 
 abort_time: 30                     # Time to abort a game in seconds when there is no activity.
 fake_think_time: false             # Artificially slow down the bot to pretend like it's thinking.
