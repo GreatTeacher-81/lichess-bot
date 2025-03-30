@@ -3,7 +3,7 @@ url: "https://lichess.org/"        # Lichess base URL.
 
 engine:                            # Engine settings.
   dir: "./engines/"                # Directory containing the engine. This can be an absolute path or one relative to lichess-bot/.
-  name: "engine_name"              # Binary name of the engine to use.
+  name: "stockfish.17.1"              # Binary name of the engine to use.
 # interpreter: "java"
 # interpreter_options:
 #   - "-jar"
@@ -13,11 +13,11 @@ engine:                            # Engine settings.
   ponder: true                     # Think on opponent's time.
 
   polyglot:
-    enabled: false                 # Activate polyglot book.
+    enabled: true                 # Activate polyglot book.
     book:
       standard:                    # List of book file paths for variant standard.
-        - engines/book1.bin
-        - engines/book2.bin
+        - engines/open.bin
+#       - engines/book2.bin
 #     atomic:                      # List of book file paths for variant atomic.
 #       - engines/atomicbook1.bin
 #       - engines/atomicbook2.bin
@@ -25,16 +25,16 @@ engine:                            # Engine settings.
 #     Use the same pattern for 'chess960', 'giveaway' (antichess), 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
     min_weight: 1                  # Does not select moves with weight below min_weight (min 0, max: 65535).
     selection: "weighted_random"   # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
-    max_depth: 20                  # How many moves from the start to take from the book.
+    max_depth: 280                  # How many moves from the start to take from the book.
 
   draw_or_resign:
     resign_enabled: false          # Whether or not the bot should resign.
     resign_score: -1000            # If the score is less than or equal to this value, the bot resigns (in cp).
-    resign_for_egtb_minus_two: true # If true the bot will resign in positions where the online_egtb returns a wdl of -2.
+    resign_for_egtb_minus_two: false # If true the bot will resign in positions where the online_egtb returns a wdl of -2.
     resign_moves: 3                # How many moves in a row the score has to be below the resign value.
-    offer_draw_enabled: true       # Whether or not the bot should offer/accept draw.
+    offer_draw_enabled: false       # Whether or not the bot should offer/accept draw.
     offer_draw_score: 0            # If the absolute value of the score is less than or equal to this value, the bot offers/accepts draw (in cp).
-    offer_draw_for_egtb_zero: true # If true the bot will offer/accept draw in positions where the online_egtb returns a wdl of 0.
+    offer_draw_for_egtb_zero: false # If true the bot will offer/accept draw in positions where the online_egtb returns a wdl of 0.
     offer_draw_moves: 10           # How many moves in a row the absolute value of the score has to be below the draw value.
     offer_draw_pieces: 10          # Only if the pieces on board are less than or equal to this value, the bot offers/accepts draw.
 
@@ -91,8 +91,8 @@ engine:                            # Engine settings.
 
   uci_options:                     # Arbitrary UCI options passed to the engine.
     Move Overhead: 100             # Increase if your bot flags games too often.
-    Threads: 4                     # Max CPU threads the engine can use.
-    Hash: 512                      # Max memory (in megabytes) the engine can allocate.
+    Threads: 8                    # Max CPU threads the engine can use.
+    Hash: 2048                     # Max memory (in megabytes) the engine can allocate.
     SyzygyPath: "./syzygy/"        # Paths to Syzygy endgame tablebases that the engine reads.
     UCI_ShowWDL: true              # Show the chance of the engine winning.
 #   go_commands:                   # Additional options to pass to the UCI go command.
@@ -116,8 +116,8 @@ engine:                            # Engine settings.
 
 abort_time: 30                     # Time to abort a game in seconds when there is no activity.
 fake_think_time: false             # Artificially slow down the bot to pretend like it's thinking.
-rate_limiting_delay: 0             # Time (in ms) to delay after sending a move to prevent "Too Many Requests" errors.
-move_overhead: 2000                # Increase if your bot flags games too often.
+rate_limiting_delay: 2             # Time (in ms) to delay after sending a move to prevent "Too Many Requests" errors.
+move_overhead: 100               # Increase if your bot flags games too often.
 max_takebacks_accepted: 0          # The number of times to allow an opponent to take back a move in a game.
 quit_after_all_games_finish: false # If set to true, then pressing Ctrl-C to quit will only stop lichess-bot after all current games have finished.
 
@@ -130,7 +130,7 @@ correspondence:
 challenge:                         # Incoming challenges.
   concurrency: 1                   # Number of games to play simultaneously.
   sort_by: "best"                  # Possible values: "best" and "first".
-  preference: "none"               # Possible values: "none", "human", "bot".
+  preference: "human"               # Possible values: "none", "human", "bot".
   accept_bot: true                 # Accepts challenges coming from other bots.
   only_bot: false                  # Accept challenges by bots only.
   max_increment: 20                # Maximum amount of increment to accept a challenge in seconds. The max is 180. Set to 0 for no increment.
@@ -166,9 +166,9 @@ challenge:                         # Incoming challenges.
 # allow_list:                      # List of users from which challenges are exclusively accepted, all others being declined. If empty, challenges from all users may be accepted.
 #   - user3
 #   - user4
-# recent_bot_challenge_age: 60     # Maximum age of a bot challenge to be considered recent in seconds
-# max_recent_bot_challenges: 2     # Maximum number of recent challenges that can be accepted from the same bot
-  bullet_requires_increment: false # Require that bullet game challenges from bots have a non-zero increment
+  recent_bot_challenge_age: 300   # Maximum age of a bot challenge to be considered recent in seconds
+  max_recent_bot_challenges: 2     # Maximum number of recent challenges that can be accepted from the same bot
+  bullet_requires_increment: true # Require that bullet game challenges from bots have a non-zero increment
   max_simultaneous_games_per_user: 5  # Maximum number of simultaneous games with the same user
 
 greeting:
