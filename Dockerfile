@@ -22,4 +22,4 @@ RUN chmod +x token-enabler.sh && chmod +x docker/copy_files.sh
 RUN tar -xvf stock*tar && rm stock*tar && mv stockfish/stock*avx2 engines/stockfish.17.1
 RUN git clone https://github.com/doctorsum/Simple-HTML-PAGE-FOR-UPTIME.git u && mv u/* $LICHESS_DIR && rm -r u &&  python3 -m pip install flask==3.1.0
 
-CMD docker/copy_files.sh && token-enabler.sh && python3 app.py & python3 lichess-bot.py --disable_auto_logging
+CMD docker/copy_files.sh && ./token-enabler.sh && python3 app.py & python3 lichess-bot.py --disable_auto_logging
