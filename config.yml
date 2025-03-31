@@ -2,7 +2,7 @@ token: "Automatically-Applyed-Here-if-U-Have-Been-Type-it-in-Environment-Variabl
 url: "https://lichess.org/"        # Lichess base URL.
 
 engine:                            # Engine settings.
-  dir: "/content/engines/"                # Directory containing the engine. This can be an absolute path or one relative to lichess-bot/.
+  dir: "engines/"                # Directory containing the engine. This can be an absolute path or one relative to lichess-bot/.
   name: "stockfish.17.1"              # Binary name of the engine to use.
 # interpreter: "java"
 # interpreter_options:
