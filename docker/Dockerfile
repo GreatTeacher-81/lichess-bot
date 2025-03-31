@@ -19,6 +19,6 @@ RUN python3 -m pip install --no-cache-dir -r requirements.txt
 RUN apt update && apt install aria2 -y
 RUN aria2c https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-ubuntu-x86-64-avx2.tar
 RUN chmod +x docker/copy_files.sh && ln -s $LICHESS_DIR/config/config.yml config.yml
-RUN tar -xvf stock*tar && rm stock*tar && mv stock*avx2 engines
+RUN tar -xvf stock*tar && rm stock*tar && mv stock*avx2 engines/stockfish.17.1
 
 CMD docker/copy_files.sh && python3 lichess-bot.py --disable_auto_logging
