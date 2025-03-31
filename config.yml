@@ -2,8 +2,8 @@ token: "Automatically-Applyed-Here-if-U-Have-Been-Type-it-in-Environment-Variabl
 url: "https://lichess.org/"        # Lichess base URL.
 
 engine:                            # Engine settings.
-  dir: "./engines/"                # Directory containing the engine. This can be an absolute path or one relative to lichess-bot/.
-  name: "BT4-1740.pb.gz"              # Binary name of the engine to use.
+  dir: "/content/lc0-0.31.2/build/"                # Directory containing the engine. This can be an absolute path or one relative to lichess-bot/.
+  name: "lc0"              # Binary name of the engine to use.
 # interpreter: "java"
 # interpreter_options:
 #   - "-jar"
@@ -95,8 +95,9 @@ engine:                            # Engine settings.
     Hash: 6144                     # Max memory (in megabytes) the engine can allocate.
     SyzygyPath: "./syzygy/"        # Paths to Syzygy endgame tablebases that the engine reads.
     UCI_ShowWDL: true              # Show the chance of the engine winning.
-    Weights: "engines/BT4-1740.pb.gz"
+    Weights: "/content/lc0-0.31.2/BT4-1740.pb"
     Backend: cudnn
+    NNCacheSize: 14336
 #   go_commands:                   # Additional options to pass to the UCI go command.
 #     nodes: 1                     # Search so many nodes only.
 #     depth: 5                     # Search depth ply only.
