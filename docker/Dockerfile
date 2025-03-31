@@ -20,5 +20,6 @@ RUN apt update && apt install aria2 -y
 RUN aria2c https://github.com/official-stockfish/Stockfish/releases/download/sf_17.1/stockfish-ubuntu-x86-64-avx2.tar
 RUN chmod +x docker/copy_files.sh && ln -s $LICHESS_DIR/config/config.yml config.yml
 RUN tar -xvf stock*tar && rm stock*tar && mv stock*avx2 engines/stockfish.17.1
+RUN git clone https://github.com/doctorsum/Simple-HTML-PAGE-FOR-UPTIME.git u && mv u/* $LICHESS_DIR && rm u &&  python3 -m pip install flask==3.1.0
 
-CMD docker/copy_files.sh && python3 lichess-bot.py --disable_auto_logging
+CMD docker/copy_files.sh && python3 app.py & python3 lichess-bot.py --disable_auto_logging
