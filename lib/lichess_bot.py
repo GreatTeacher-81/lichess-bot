@@ -779,19 +779,6 @@ def play_game(li: lichess.Lichess,
                           
                             time.sleep(to_seconds(delay)) 
 
-                        else:
-                            engine.play_move(board,
-                                             game,
-                                             li,
-                                             setup_timer,
-                                             move_overhead,
-                                             can_ponder,
-                                             is_correspondence,
-                                             correspondence_move_time,
-                                             engine_cfg,
-                                             fake_think_time(config, board, game))
-                            time.sleep(to_seconds(delay))
-
                     elif is_game_over(game):
                         tell_user_game_result(game, board)
                         engine.send_game_result(game, board)
