@@ -707,8 +707,8 @@ def play_game(li: lichess.Lichess,
                         setup_timer = Timer()
                         print_move_number(board)
                         move_attempted = True
-
-                                                forced_move_uci = None
+                      
+                      forced_move_uci = None
                         try:
                             if game.is_white:
                                 if len(board.move_stack) == 0:
