@@ -125,7 +125,7 @@ max_takebacks_accepted: 0          # The number of times to allow an opponent to
 quit_after_all_games_finish: false # If set to true, then pressing Ctrl-C to quit will only stop lichess-bot after all current games have finished.
 
 correspondence:
-  move_time: 60                    # Time in seconds to search in correspondence games.
+  move_time: 1                    # Time in seconds to search in correspondence games.
   checkin_period: 300              # How often to check for opponent moves in correspondence games after disconnecting.
   disconnect_time: 150             # Time before disconnecting from a correspondence game.
   ponder: false                    # Ponder in correspondence games the bot is connected to.
@@ -136,11 +136,11 @@ challenge:                         # Incoming challenges.
   preference: "human"               # Possible values: "none", "human", "bot".
   accept_bot: false                 # Accepts challenges coming from other bots.
   only_bot: false                 # Accept challenges by bots only.
-  max_increment: 20                # Maximum amount of increment to accept a challenge in seconds. The max is 180. Set to 0 for no increment.
+  max_increment: 20               # Maximum amount of increment to accept a challenge in seconds. The max is 180. Set to 0 for no increment.
   min_increment: 0                 # Minimum amount of increment to accept a challenge in seconds.
-  max_base: 1800                   # Maximum amount of base time to accept a challenge in seconds. The max is 10800 (3 hours).
-  min_base: 0                      # Minimum amount of base time to accept a challenge in seconds.
-  max_days: 14                     # Maximum number of days per move to accept a challenge for a correspondence game.
+  max_base: 300                   # Maximum amount of base time to accept a challenge in seconds. The max is 10800 (3 hours).
+  min_base: 30                      # Minimum amount of base time to accept a challenge in seconds.
+  max_days: 0                    # Maximum number of days per move to accept a challenge for a correspondence game.
                                    # Unlimited games can be accepted by removing this field or specifying .inf
   min_days: 1                      # Minimum number of days per move to accept a challenge for a correspondence game.
   variants:                        # Chess variants to accept (https://lichess.org/variant).
