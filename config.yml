@@ -23,9 +23,9 @@ engine:                            # Engine settings.
 #       - engines/atomicbook2.bin
 #     etc.
 #     Use the same pattern for 'chess960', 'giveaway' (antichess), 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
-    min_weight: 1                  # Does not select moves with weight below min_weight (min 0, max: 65535).
+    min_weight: -1000                  # Does not select moves with weight below min_weight (min 0, max: 65535).
     selection: "uniform_random"   # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
-    max_depth: 300                  # How many moves from the start to take from the book.
+    max_depth: 4810                  # How many moves from the start to take from the book.
 
   draw_or_resign:
     resign_enabled: false          # Whether or not the bot should resign.
@@ -84,15 +84,15 @@ engine:                            # Engine settings.
       move_quality: "best"         # One of "best" or "suggest" (it takes all the moves with the same WDL and tells the engine to only consider these; will move instantly if there is only 1 "good" move).
 
 # engine_options:                  # Any custom command line params to pass to the engine.
-    cpuct: 2.8
+    cpuct: 200
 
   homemade_options:
 #   Hash: 256
 
   uci_options:                     # Arbitrary UCI options passed to the engine.
-    Move Overhead: 45         # Increase if your bot flags games too often.
+    Move Overhead: 100         # Increase if your bot flags games too often.
     Threads: 15                  # Max CPU threads the engine can use.
-    Hash: 7168                    # Max memory (in megabytes) the engine can allocate.
+    Hash: 8192                    # Max memory (in megabytes) the engine can allocate.
 #    SyzygyPath: "./syzygy/"        # Paths to Syzygy endgame tablebases that the engine reads.
     UCI_ShowWDL: false              # Show the chance of the engine winning.
 #    WeightsFile: "/content/lc0-0.31.2/BT4-1740.pb"
@@ -120,7 +120,7 @@ engine:                            # Engine settings.
 abort_time: 30                     # Time to abort a game in seconds when there is no activity.
 fake_think_time: false             # Artificially slow down the bot to pretend like it's thinking.
 rate_limiting_delay: 2             # Time (in ms) to delay after sending a move to prevent "Too Many Requests" errors.
-move_overhead: 45              # Increase if your bot flags games too often.
+move_overhead: 100              # Increase if your bot flags games too often.
 max_takebacks_accepted: 0          # The number of times to allow an opponent to take back a move in a game.
 quit_after_all_games_finish: false # If set to true, then pressing Ctrl-C to quit will only stop lichess-bot after all current games have finished.
 
@@ -134,8 +134,8 @@ challenge:                         # Incoming challenges.
   concurrency: 1                   # Number of games to play simultaneously.
   sort_by: "best"                  # Possible values: "best" and "first".
   preference: "human"               # Possible values: "none", "human", "bot".
-  accept_bot: true                 # Accepts challenges coming from other bots.
-  only_bot: true                  # Accept challenges by bots only.
+  accept_bot: false                 # Accepts challenges coming from other bots.
+  only_bot: false                 # Accept challenges by bots only.
   max_increment: 20                # Maximum amount of increment to accept a challenge in seconds. The max is 180. Set to 0 for no increment.
   min_increment: 0                 # Minimum amount of increment to accept a challenge in seconds.
   max_base: 1800                   # Maximum amount of base time to accept a challenge in seconds. The max is 10800 (3 hours).
@@ -145,7 +145,7 @@ challenge:                         # Incoming challenges.
   min_days: 1                      # Minimum number of days per move to accept a challenge for a correspondence game.
   variants:                        # Chess variants to accept (https://lichess.org/variant).
     - standard
-    - fromPosition
+#    - fromPosition
 #   - antichess
 #   - atomic
 #   - chess960
