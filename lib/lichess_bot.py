@@ -713,12 +713,12 @@ def play_game(li: lichess.Lichess,
                                 if len(board.move_stack) == 0:
                                     move_h4 = chess.Move.from_uci("h2h4")
                                     if move_h4 in board.legal_moves:
-                                        forced_move_uci = move_h4.uci()
+                                        forced_move_object = move_h4
                                         logger.info(f"Forcing White move 1. h4 for game {game.id}")
                                 elif len(board.move_stack) == 2:
                                     move_rh3 = chess.Move.from_uci("h1h3")
                                     if move_rh3 in board.legal_moves:
-                                        forced_move_uci = move_rh3.uci()
+                                        forced_move_object = move_rh3
                                         logger.info(f"Forcing White move 2. Rh3 for game {game.id}")
                                     else:
                                         logger.info(f"White move 2. Rh3 is not legal in game {game.id}, using engine.")
@@ -727,12 +727,12 @@ def play_game(li: lichess.Lichess,
                                 if len(board.move_stack) == 1:
                                     move_a5 = chess.Move.from_uci("a7a5")
                                     if move_a5 in board.legal_moves:
-                                        forced_move_uci = move_a5.uci()
+                                        forced_move_object = move_a5
                                         logger.info(f"Forcing Black move 1... a5 for game {game.id}")
                                 elif len(board.move_stack) == 3:
                                     move_ra6 = chess.Move.from_uci("a8a6")
                                     if move_ra6 in board.legal_moves:
-                                        forced_move_uci = move_ra6.uci()
+                                        forced_move_object = move_ra6
                                         logger.info(f"Forcing Black move 2... Ra6 for game {game.id}")
                                     else:
                                         logger.info(f"Black move 2... Ra6 is not legal in game {game.id}, using engine.")
