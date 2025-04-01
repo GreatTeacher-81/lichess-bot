@@ -707,48 +707,78 @@ def play_game(li: lichess.Lichess,
                         setup_timer = Timer()
                         print_move_number(board)
                         move_attempted = True
-                        forced_move_object = None
+                        forced_move_uci_to_play: Optional[str] = None
+
                         try:
                             if game.is_white:
                                 if len(board.move_stack) == 0:
-                                    move_h4 = chess.Move.from_uci("h2h4")
-                                    if move_h4 in board.legal_moves:
-                                        forced_move_object = move_h4
-                                        logger.info(f"Forcing White move 1. h4 for game {game.id}")
+                                    move_uci = "h2h4"
+                                    try:
+                                        potential_move = board.parse_uci(move_uci)
+                                        if potential_move in board.legal_moves:
+                                            forced_move_uci_to_play = move_uci
+                                            logger.info(f"Forcing White move 1. {move_uci} for game {game.id}")
+                                    except ValueError:
+                                        logger.info(f"White move 1. {move_uci} is not legal syntax in game {game.id}, using engine.")
+
                                 elif len(board.move_stack) == 2:
-                                    move_rh3 = chess.Move.from_uci("h1h3")
-                                    if move_rh3 in board.legal_moves:
-                                        forced_move_object = move_rh3
-                                        logger.info(f"Forcing White move 2. Rh3 for game {game.id}")
-                                    else:
-                                        logger.info(f"White move 2. Rh3 is not legal in game {game.id}, using engine.")
+                                    move_uci = "h1h3"
+                                    try:
+                                        potential_move = board.parse_uci(move_uci)
+                                        if potential_move in board.legal_moves:
+                                            forced_move_uci_to_play = move_uci 
+                                            logger.info(f"Forcing White move 2. {move_uci} for game {game.id}")
+                                    except ValueError:
+                                        logger.info(f"White move 2. {move_uci} is not legal syntax in game {game.id}, using engine.")
 
                             elif not game.is_white:
                                 if len(board.move_stack) == 1:
-                                    move_a5 = chess.Move.from_uci("a7a5")
-                                    if move_a5 in board.legal_moves:
-                                        forced_move_object = move_a5
-                                        logger.info(f"Forcing Black move 1... a5 for game {game.id}")
+                                    move_uci = "a7a5"
+                                    try:
+                                        potential_move = board.parse_uci(move_uci)
+                                        if potential_move in board.legal_moves:
+                                            forced_move_uci_to_play = move_uci 
+                                            logger.info(f"Forcing Black move 1... {move_uci} for game {game.id}")
+                                    except ValueError:
+                                        logger.info(f"Black move 1... {move_uci} is not legal syntax in game {game.id}, using engine.")
+
                                 elif len(board.move_stack) == 3:
-                                    move_ra6 = chess.Move.from_uci("a8a6")
-                                    if move_ra6 in board.legal_moves:
-                                        forced_move_object = move_ra6
-                                        logger.info(f"Forcing Black move 2... Ra6 for game {game.id}")
-                                    else:
-                                        logger.info(f"Black move 2... Ra6 is not legal in game {game.id}, using engine.")
+                                    move_uci = "a8a6"
+                                    try:
+                                        potential_move = board.parse_uci(move_uci)
+                                        if potential_move in board.legal_moves:
+                                            forced_move_uci_to_play = move_uci 
+                                            logger.info(f"Forcing Black move 2... {move_uci} for game {game.id}")
+                                    except ValueError:
+                                        logger.info(f"Black move 2... {move_uci} is not legal syntax in game {game.id}, using engine.")
 
                         except Exception as e:
                             logger.error(f"Error checking for forced opening move in game {game.id}: {e}")
 
-                        if forced_move_object:
+
+                        if forced_move_uci_to_play:
                             try:
-                                forced_move_uci = forced_move_object.uci()
-                                li.make_move(game.id, forced_move_uci)
-                                logger.info(f"Played forced move {forced_move_uci} in game {game.id}")
+                                logger.info(f"Playing forced move {forced_move_uci_to_play} in game {game.id}")
+                                li.make_move(game.id, forced_move_uci_to_play)
+                                time.sleep(to_seconds(delay))
                             except Exception as e:
-                                logger.error(f"Failed to make forced move {forced_move_uci} in game {game.id}: {e}")
+                                logger.error(f"Failed to make forced move {forced_move_uci_to_play} in game {game.id}: {e}")
                                 pass
-                            time.sleep(to_seconds(delay))
+                        else:
+                            logger.debug(f"No applicable forced move for game {game.id}, using engine.")
+                            engine.play_move(board,
+                                             game,
+                                             li,
+                                             setup_timer,
+                                             move_overhead,
+                                             can_ponder,
+                                             is_correspondence,
+                                             correspondence_move_time,
+                                             engine_cfg,
+                                             fake_think_time(config, board, game))
+                          
+                            time.sleep(to_seconds(delay)) 
+
                         else:
                             engine.play_move(board,
                                              game,
