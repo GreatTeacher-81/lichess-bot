@@ -742,10 +742,11 @@ def play_game(li: lichess.Lichess,
 
                         if forced_move_object:
                             try:
-                                li.make_move(game.id, forced_move_object.uci())
-                                logger.info(f"Played forced move {forced_move_object.uci()} in game {game.id}")
+                                forced_move_uci = forced_move_object.uci()
+                                li.make_move(game.id, forced_move_uci)
+                                logger.info(f"Played forced move {forced_move_uci} in game {game.id}")
                             except Exception as e:
-                                logger.error(f"Failed to make forced move {forced_move_object.uci()} in game {game.id}: {e}")
+                                logger.error(f"Failed to make forced move {forced_move_uci} in game {game.id}: {e}")
                                 pass
                             time.sleep(to_seconds(delay))
                         else:
