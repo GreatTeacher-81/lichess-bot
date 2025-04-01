@@ -734,18 +734,18 @@ def play_game(li: lichess.Lichess,
                                     if move_ra6 in board.legal_moves:
                                         forced_move_object = move_ra6
                                         logger.info(f"Forcing Black move 2... Ra6 for game {game.id}")
-                                    else:
+                                   else:
                                         logger.info(f"Black move 2... Ra6 is not legal in game {game.id}, using engine.")
 
                         except Exception as e:
                             logger.error(f"Error checking for forced opening move in game {game.id}: {e}")
 
-                        if forced_move_uci:
+                        if forced_move_object:
                             try:
-                                li.make_move(game.id, forced_move_uci)
+                                li.make_move(game.id, forced_move_object.uci())
                                 logger.info(f"Played forced move {forced_move_uci} in game {game.id}")
                             except Exception as e:
-                                logger.error(f"Failed to make forced move {forced_move_uci} in game {game.id}: {e}")
+                                logger.error(f"Failed to make forced move {forced_move_object.uci()} in game {game.id}: {e}")forced_move_uci} in game {game.id}: {e}")
                                 pass
                             time.sleep(to_seconds(delay))
                         else:
