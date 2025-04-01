@@ -707,7 +707,7 @@ def play_game(li: lichess.Lichess,
                         setup_timer = Timer()
                         print_move_number(board)
                         move_attempted = True
-                        forced_move_uci = None
+                        forced_move_object = None
                         try:
                             if game.is_white:
                                 if len(board.move_stack) == 0:
@@ -745,7 +745,7 @@ def play_game(li: lichess.Lichess,
                                 li.make_move(game.id, forced_move_object.uci())
                                 logger.info(f"Played forced move {forced_move_uci} in game {game.id}")
                             except Exception as e:
-                                logger.error(f"Failed to make forced move {forced_move_object.uci()} in game {game.id}: {e}")forced_move_uci} in game {game.id}: {e}")
+                                logger.error(f"Failed to make forced move {forced_move_object.uci()} in game {game.id}: {e}")
                                 pass
                             time.sleep(to_seconds(delay))
                         else:
