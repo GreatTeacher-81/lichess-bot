@@ -156,7 +156,7 @@ challenge:                         # Incoming challenges.
 #   - threeCheck
   time_controls:                   # Time controls to accept (bots are not allowed to play ultraBullet).
      - bullet
-#    - blitz
+     - blitz
 #    - rapid
 #    - classical
 #    - correspondence
