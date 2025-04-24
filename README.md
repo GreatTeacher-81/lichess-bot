@@ -64,4 +64,4 @@ lichess-bot is licensed under the AGPLv3 (or any later version at your option). 
 ## Citation
 If this software has been used for research purposes, please cite it using the "Cite this repository" menu on the right sidebar. For more information, check the [CITATION file](https://github.com/lichess-bot-devs/lichess-bot/blob/master/CITATION.cff).
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FGreatTeacher-81%2Flichess-bot&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
+![Visitor Count](https://komarev.com/ghpvc/?username=GreatTeacher-81&repo=lichess-bot&color=blue&style=flat-square)
